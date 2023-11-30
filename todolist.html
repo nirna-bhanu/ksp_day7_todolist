@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        .cont {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 10px 15px 10px 10px;
+            width: 450px;
+
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px;
+            border-bottom: 1px solid #ddd;
+            background-color: rgb(117, 117, 117);
+            border-radius: 15px;
+            color: #fff;
+        }
+
+        button {
+            cursor: pointer;
+            padding: 6px 12px;
+            margin-left: 5px;
+            justify-content: end;
+        }
+
+        input {
+            padding: 6px 12px;
+        }
+    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+    <title>To-Do List</title>
+</head>
+
+<body class="bg-secondary">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="cont bg-info">
+                <h1>To-Do List</h1>
+                <input type="text" class="form-control" id="taskInput" placeholder="add item..."> <br>
+                <button onclick="addTask()" class="btn btn-dark">Add</button>
+                <ul id="taskList"></ul>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+
+    function addTask() {
+        const taskInput = document.getElementById('taskInput');
+        const taskList = document.getElementById('taskList');
+
+        if (taskInput.value.trim() !== '') {
+            const li = document.createElement('li');
+
+            li.innerHTML = `
+          <span>${taskInput.value}</span>
+          <button onclick="editTask(this)" class="btn btn-light">Edit</button>
+          <button onclick="deleteTask(this)" class="btn btn-light">Delete</button>
+        `;
+            taskList.appendChild(li);
+            taskInput.value = '';
+        }
+    }
+
+
+    function deleteTask(button) {
+        const li = button.parentNode;
+        li.parentNode.removeChild(li);
+    }
+
+
+    function editTask(button) {
+        const li = button.parentNode;
+        const span = li.querySelector('span');
+        const newTask = prompt('Edit task:', span.innerText);
+
+        if (newTask !== null) {
+            span.innerText = newTask;
+        }
+    }
+
+
+</script>
+
+</html>
